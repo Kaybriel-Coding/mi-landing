@@ -1,746 +1,313 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
-      name="Landing Page"
+      name="description"
       content="Landing Page de Gabriel Lopez, desarrollador Full Stack especializado en IA, combina arquitectura de software con diseño 3D y videojuegos para crear experiencias web impecables."
     />
     <title>Gabriel Lopez — Landing Page</title>
-    <style>
-      :root {
-        --color-bg: #000000;
-        --color-accent-1: #2563eb;
-        --color-accent-2: #3b82f6;
-        --color-text: #ffffff;
-        --color-text-muted: #a1a1aa;
-        --color-text-subtle: #71717a;
-        --color-border: rgba(255, 255, 255, 0.08);
-      }
-
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      body {
-        font-family:
-          system-ui,
-          -apple-system,
-          sans-serif;
-        color: var(--color-text);
-        background-color: var(--color-bg);
-        background-image:
-          radial-gradient(
-            circle at 50% -10%,
-            rgba(37, 99, 235, 0.1),
-            transparent 55%
-          ),
-          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-          linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0.025) 1px,
-            transparent 1px
-          );
-        background-size:
-          auto,
-          48px 48px,
-          48px 48px;
-        background-attachment: fixed;
-      }
-
-      .hero {
-        position: relative;
-        min-height: 80vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 2rem;
-      }
-
-      /* Capa de fondo animado */
-      .hero__bg {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-      }
-
-      .blob {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(80px);
-        opacity: 0.45;
-        will-change: transform;
-      }
-
-      .blob--1 {
-        width: 420px;
-        height: 420px;
-        background: var(--color-accent-1);
-        top: -10%;
-        left: -5%;
-        animation: float-1 18s ease-in-out infinite;
-      }
-
-      .blob--2 {
-        width: 380px;
-        height: 380px;
-        background: var(--color-accent-2);
-        bottom: -10%;
-        right: -5%;
-        animation: float-2 22s ease-in-out infinite;
-      }
-
-      @keyframes float-1 {
-        0%,
-        100% {
-          transform: translate(0, 0) scale(1);
-        }
-        50% {
-          transform: translate(60px, 40px) scale(1.1);
-        }
-      }
-
-      @keyframes float-2 {
-        0%,
-        100% {
-          transform: translate(0, 0) scale(1);
-        }
-        50% {
-          transform: translate(-50px, -30px) scale(1.08);
-        }
-      }
-
-      /* Contenido del hero */
-      .hero__content {
-        position: relative;
-        z-index: 1;
-        max-width: 900px;
-      }
-
-      .hero__content h1 {
-        font-size: clamp(2.4rem, 7vw, 5.5rem);
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
-        margin-bottom: 1rem;
-        opacity: 0;
-        transform: translateY(16px);
-        animation: fade-up 0.9s ease forwards 0.2s;
-      }
-
-      @media (min-width: 769px) {
-        .hero__content h1 {
-          white-space: nowrap;
-        }
-      }
-
-      .hero__content p {
-        font-size: 1.1rem;
-        color: var(--color-text-muted);
-        margin-bottom: 2rem;
-        opacity: 0;
-        transform: translateY(16px);
-        animation: fade-up 0.9s ease forwards 0.4s;
-      }
-
-      .hero__content button {
-        padding: 0.85rem 1.8rem;
-        font-size: 1rem;
-        border: none;
-        border-radius: 999px;
-        background: linear-gradient(
-          135deg,
-          var(--color-accent-1),
-          var(--color-accent-2)
-        );
-        color: white;
-        cursor: pointer;
-        opacity: 0;
-        transform: translateY(16px);
-        animation: fade-up 0.9s ease forwards 0.6s;
-        transition: transform 0.2s ease;
-      }
-
-      .hero__content button:hover {
-        transform: translateY(-2px);
-      }
-
-      @keyframes fade-up {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      /* Respeta la preferencia del usuario de reducir movimiento */
-      @media (prefers-reduced-motion: reduce) {
-        .blob {
-          animation: none;
-        }
-        .page-glow span {
-          animation: none;
-        }
-        .spot {
-          animation: none;
-        }
-        .hero__content h1,
-        .hero__content p,
-        .hero__content button {
-          animation: none;
-          opacity: 1;
-          transform: none;
-        }
-      }
-
-      .hero__name {
-        font-size: 0.95rem;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--color-text-subtle);
-        margin-bottom: 1.2rem;
-        opacity: 0;
-        transform: translateY(16px);
-        animation: fade-up 0.9s ease forwards 0s;
-      }
-
-      /* Secciones inferiores (vacías por ahora) */
-      section.section {
-        position: relative;
-        min-height: 60vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 4rem 2rem;
-        scroll-margin-top: 80px;
-      }
-
-      html,
-      body {
-        overflow-x: hidden;
-      }
-
-      /* Capa de resplandor fija para toda la página (evita cortes entre secciones) */
-      .page-glow {
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-        overflow: hidden;
-        pointer-events: none;
-      }
-
-      .page-glow span {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(140px);
-        opacity: 0.14;
-        animation: glow-drift 20s ease-in-out infinite;
-      }
-
-      .page-glow span:nth-child(1) {
-        width: 520px;
-        height: 520px;
-        background: var(--color-accent-1);
-        top: 8%;
-        left: -12%;
-      }
-
-      .page-glow span:nth-child(2) {
-        width: 480px;
-        height: 480px;
-        background: var(--color-accent-2);
-        bottom: 6%;
-        right: -12%;
-        animation-duration: 24s;
-      }
-
-      .page-glow span:nth-child(3) {
-        width: 420px;
-        height: 420px;
-        background: var(--color-accent-1);
-        top: 42%;
-        left: 45%;
-        animation-duration: 18s;
-      }
-
-      @keyframes glow-drift {
-        0%,
-        100% {
-          transform: translate(0, 0) scale(1);
-        }
-        50% {
-          transform: translate(30px, 20px) scale(1.08);
-        }
-      }
-
-      /* Focos de luz adicionales dentro de cada sección */
-      .spot {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(120px);
-        opacity: 0.15;
-        pointer-events: none;
-        z-index: 0;
-        animation: glow-drift 18s ease-in-out infinite;
-      }
-
-      .spot--sm {
-        width: 300px;
-        height: 300px;
-      }
-      .spot--md {
-        width: 420px;
-        height: 420px;
-      }
-
-      .about__content,
-      .project-grid,
-      #contacto > .contact__content {
-        position: relative;
-        z-index: 1;
-      }
-
-      section.section h2 {
-        font-size: clamp(1.5rem, 3vw, 2.2rem);
-        font-weight: 500;
-        color: var(--color-text-subtle);
-        letter-spacing: 0.04em;
-      }
-
-      #contacto {
-        min-height: 40vh;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        gap: 2.5rem;
-        padding: 1.2rem 1rem;
-        z-index: 10;
-        background: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--color-border);
-      }
-
-      .navbar a {
-        display: inline-block;
-        padding: 0.4rem 0.2rem;
-        color: var(--color-text-muted);
-        text-decoration: none;
-        font-size: 0.9rem;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        transition: color 0.2s ease;
-      }
-
-      .navbar a:hover {
-        color: var(--color-text);
-      }
-
-      /* Tarjetas de proyecto */
-      .project-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-        width: 100%;
-        max-width: 960px;
-        margin: 0 auto;
-        justify-items: stretch;
-      }
-
-      .project-card {
-        background: #0a0a0a;
-        border: 1px solid var(--color-border);
-        border-radius: 14px;
-        padding: 1.8rem;
-        text-align: left;
-        transition:
-          transform 0.25s ease,
-          box-shadow 0.25s ease,
-          border-color 0.25s ease;
-      }
-
-      .project-card:hover {
-        transform: translateY(-6px);
-        border-color: rgba(59, 130, 246, 0.4);
-        box-shadow: 0 12px 30px rgba(37, 99, 235, 0.18);
-      }
-
-      .project-card__icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-        background: linear-gradient(
-          135deg,
-          var(--color-accent-1),
-          var(--color-accent-2)
-        );
-        margin-bottom: 1.2rem;
-      }
-
-      .project-card h3 {
-        font-size: 1.15rem;
-        font-weight: 600;
-        margin-bottom: 0.6rem;
-        color: var(--color-text);
-      }
-
-      .project-card p {
-        font-size: 0.95rem;
-        color: var(--color-text-muted);
-        line-height: 1.5;
-        margin-bottom: 1.2rem;
-      }
-
-      .project-card__tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-
-      .project-card__tags span {
-        font-size: 0.75rem;
-        padding: 0.3rem 0.7rem;
-        border-radius: 999px;
-        background: rgba(59, 130, 246, 0.1);
-        color: #60a5fa;
-        border: 1px solid rgba(59, 130, 246, 0.25);
-      }
-
-      #proyectos {
-        flex-direction: column;
-        gap: 2.5rem;
-      }
-
-      /* Sección Sobre mí */
-      .about__content {
-        max-width: 700px;
-        text-align: left;
-      }
-
-      .about__content h2 {
-        margin-bottom: 1.5rem;
-      }
-
-      .about__content p {
-        color: var(--color-text-muted);
-        line-height: 1.75;
-        font-size: 1.05rem;
-        margin-bottom: 1.3rem;
-      }
-
-      .about__cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 0.6rem;
-        color: var(--color-text);
-        font-weight: 600;
-        font-size: 1.02rem;
-        text-decoration: none;
-        position: relative;
-      }
-
-      .about__cta::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: -4px;
-        width: 100%;
-        height: 1px;
-        background: var(--color-accent-2);
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.25s ease;
-      }
-
-      .about__cta:hover::after {
-        transform: scaleX(1);
-      }
-
-      .about__cta .arrow {
-        transition: transform 0.25s ease;
-      }
-
-      .about__cta:hover .arrow {
-        transform: translateX(6px);
-      }
-
-      /* Aparición suave al hacer scroll */
-      .reveal {
-        opacity: 0;
-        transform: translateY(24px);
-        transition:
-          opacity 0.8s ease,
-          transform 0.8s ease;
-      }
-
-      .reveal.is-visible {
-        opacity: 1;
-        transform: none;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .reveal {
-          opacity: 1;
-          transform: none;
-          transition: none;
-        }
-      }
-
-      /* Sección Contacto */
-      .contact__content {
-        text-align: center;
-      }
-
-      .contact__email {
-        display: inline-block;
-        margin-top: 1rem;
-        font-size: clamp(1.3rem, 3vw, 1.8rem);
-        color: var(--color-text);
-        text-decoration: none;
-        position: relative;
-      }
-
-      .contact__email::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: -4px;
-        width: 100%;
-        height: 1px;
-        background: var(--color-accent-2);
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.25s ease;
-      }
-
-      .contact__email:hover::after {
-        transform: scaleX(1);
-      }
-
-      .contact__socials {
-        display: flex;
-        justify-content: center;
-        gap: 1.5rem;
-        margin-top: 2rem;
-      }
-
-      .contact__socials a {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        border: 1px solid var(--color-border);
-        color: var(--color-text-muted);
-        transition:
-          color 0.2s ease,
-          border-color 0.2s ease,
-          transform 0.2s ease;
-      }
-
-      .contact__socials a svg {
-        width: 20px;
-        height: 20px;
-      }
-
-      .contact__socials a:hover {
-        color: var(--color-text);
-        border-color: rgba(59, 130, 246, 0.4);
-        transform: translateY(-3px);
-      }
-    </style>
+    <link rel="stylesheet" href="estilos/tailwind.min.css" />
   </head>
-  <body>
-    <div class="page-glow" aria-hidden="true">
-      <span></span>
-      <span></span>
-      <span></span>
+  <body
+    class="min-h-screen overflow-x-hidden bg-black bg-fixed text-white [background-image:radial-gradient(circle_at_50%_-10%,rgba(37,99,235,0.1),transparent_55%),linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] [background-size:auto,48px_48px,48px_48px]"
+  >
+    <div
+      class="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+      aria-hidden="true"
+    >
+      <span
+        class="absolute left-[-12%] top-[8%] h-[520px] w-[520px] rounded-full bg-blue-600 opacity-[0.14] blur-[140px] animate-[glow-drift_20s_ease-in-out_infinite] motion-reduce:animate-none"
+      ></span>
+      <span
+        class="absolute bottom-[6%] right-[-12%] h-[480px] w-[480px] rounded-full bg-blue-500 opacity-[0.14] blur-[140px] animate-[glow-drift_24s_ease-in-out_infinite] motion-reduce:animate-none"
+      ></span>
+      <span
+        class="absolute left-[45%] top-[42%] h-[420px] w-[420px] rounded-full bg-blue-600 opacity-[0.14] blur-[140px] animate-[glow-drift_18s_ease-in-out_infinite] motion-reduce:animate-none"
+      ></span>
     </div>
 
-    <nav class="navbar">
-      <a href="#sobre-mi">Sobre mí</a>
-      <a href="#proyectos">Proyectos</a>
-      <a href="#contacto">Contacto</a>
-    </nav>
-
-    <section class="hero" id="hero">
-      <div class="hero__bg">
-        <div class="blob blob--1"></div>
-        <div class="blob blob--2"></div>
-      </div>
-
-      <div class="hero__content">
-        <h1>Gabriel Lopez</h1>
-        <p>Desarrollador Full Stack &amp; IA con ADN Creativo</p>
-      </div>
-    </section>
-
-    <section class="section" id="sobre-mi">
-      <div
-        class="spot spot--md"
-        aria-hidden="true"
-        style="
-          top: -12%;
-          right: -14%;
-          background: var(--color-accent-2);
-          animation-duration: 22s;
-        "
-      ></div>
-      <div class="about__content reveal">
-        <h2>Sobre mí</h2>
-        <p>
-          Hola, soy Gabriel Lopez, combino la arquitectura del software con la
-          visión estética del diseño 3D y los videojuegos. A diferencia de un
-          perfil puramente técnico, mi enfoque de Game Design me permite
-          construir herramientas web que no solo funcionan con IA, sino que
-          ofrecen una experiencia visual e interactiva impecable.
-        </p>
-        <p>
-          Mi objetivo es construir soluciones donde la tecnología avanzada y el
-          diseño excepcional marquen la diferencia.
-        </p>
-        <a class="about__cta" href="#contacto"
-          >¿Tienes un proyecto en mente? Hablemos y le damos forma.
-          <span class="arrow">→</span></a
+    <header>
+      <nav
+        class="navbar fixed left-0 top-0 z-10 flex w-full justify-center gap-2 border-b border-white/[0.08] bg-black/60 px-2 py-5 backdrop-blur-[10px] sm:gap-10 sm:px-4"
+        aria-label="Navegación principal"
+      >
+        <a
+          class="inline-block px-1 py-1.5 text-xs uppercase tracking-[0.04em] text-zinc-400 transition-colors hover:text-white sm:text-[0.9rem] sm:tracking-[0.06em]"
+          href="#sobre-mi"
+          >Sobre mí</a
         >
-      </div>
-    </section>
-
-    <section class="section" id="proyectos">
-      <div
-        class="spot spot--md"
-        aria-hidden="true"
-        style="
-          bottom: -14%;
-          left: -10%;
-          background: var(--color-accent-1);
-          animation-duration: 19s;
-        "
-      ></div>
-      <div
-        class="spot spot--sm"
-        aria-hidden="true"
-        style="
-          top: -8%;
-          right: 5%;
-          background: var(--color-accent-2);
-          animation-duration: 15s;
-        "
-      ></div>
-      <div class="project-grid reveal">
-        <h2 style="grid-column: 1 / -1">Proyectos</h2>
-
-        <div class="project-card">
-          <div class="project-card__icon"></div>
-          <h3>Nombre del proyecto</h3>
-          <p>
-            Breve descripción del proyecto: qué problema resuelve y qué papel
-            tuviste en él.
-          </p>
-          <div class="project-card__tags">
-            <span>React</span>
-            <span>Node.js</span>
-            <span>IA</span>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-card__icon"></div>
-          <h3>Nombre del proyecto</h3>
-          <p>
-            Breve descripción del proyecto: qué problema resuelve y qué papel
-            tuviste en él.
-          </p>
-          <div class="project-card__tags">
-            <span>Python</span>
-            <span>FastAPI</span>
-            <span>IA</span>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-card__icon"></div>
-          <h3>Nombre del proyecto</h3>
-          <p>
-            Breve descripción del proyecto: qué problema resuelve y qué papel
-            tuviste en él.
-          </p>
-          <div class="project-card__tags">
-            <span>Next.js</span>
-            <span>TypeScript</span>
-            <span>IA</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="contacto">
-      <div
-        class="spot spot--sm"
-        aria-hidden="true"
-        style="
-          top: 8%;
-          right: -6%;
-          background: var(--color-accent-2);
-          animation-duration: 17s;
-        "
-      ></div>
-      <div class="reveal contact__content">
-        <h2>Contacto</h2>
-        <a class="contact__email" href="mailto:Gabrielopezcoding@gmail.com"
-          >Gabrielopezcoding@gmail.com</a
+        <a
+          class="inline-block px-1 py-1.5 text-xs uppercase tracking-[0.04em] text-zinc-400 transition-colors hover:text-white sm:text-[0.9rem] sm:tracking-[0.06em]"
+          href="#proyectos"
+          >Proyectos</a
         >
+        <a
+          class="inline-block px-1 py-1.5 text-xs uppercase tracking-[0.04em] text-zinc-400 transition-colors hover:text-white sm:text-[0.9rem] sm:tracking-[0.06em]"
+          href="#contacto"
+          >Contacto</a
+        >
+      </nav>
+    </header>
 
-        <div class="contact__socials">
-          <a
-            href="#"
-            aria-label="LinkedIn"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path
-                d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"
-              />
-            </svg>
-          </a>
-          <a
-            href="https://github.com/Kaybriel-Coding"
-            aria-label="GitHub"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path
-                d="M12 2C6.48 2 2 6.58 2 12.19c0 4.49 2.87 8.3 6.84 9.65.5.1.68-.22.68-.49 0-.24-.01-1.03-.01-1.87-2.78.61-3.37-1.19-3.37-1.19-.45-1.17-1.11-1.48-1.11-1.48-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.55 2.34 1.1 2.91.84.09-.66.35-1.1.63-1.35-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.05a9.34 9.34 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.64 1.03 2.76 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.19C22 6.58 17.52 2 12 2z"
-              />
-            </svg>
-          </a>
+    <main>
+      <section
+        class="relative flex min-h-[80vh] items-center justify-center p-8 text-center"
+        id="hero"
+        aria-labelledby="hero-title"
+      >
+        <div class="absolute inset-0 z-0" aria-hidden="true">
+          <div
+            class="blob absolute left-[-5%] top-[-10%] h-[420px] w-[420px] rounded-full bg-blue-600 opacity-[0.45] blur-[80px] [will-change:transform] animate-[float-1_18s_ease-in-out_infinite] motion-reduce:animate-none"
+          ></div>
+          <div
+            class="blob absolute bottom-[-10%] right-[-5%] h-[380px] w-[380px] rounded-full bg-blue-500 opacity-[0.45] blur-[80px] [will-change:transform] animate-[float-2_22s_ease-in-out_infinite] motion-reduce:animate-none"
+          ></div>
         </div>
-      </div>
-    </section>
+
+        <div class="relative z-[1] max-w-[900px]">
+          <h1
+            class="mb-4 translate-y-4 animate-[fade-up_.9s_ease_forwards_.2s] text-[clamp(2.4rem,7vw,5.5rem)] uppercase tracking-[0.02em] opacity-0 motion-reduce:translate-y-0 motion-reduce:animate-none motion-reduce:opacity-100 lg:whitespace-nowrap"
+            id="hero-title"
+          >
+            Gabriel Lopez
+          </h1>
+          <p
+            class="mb-8 translate-y-4 animate-[fade-up_.9s_ease_forwards_.4s] text-[1.1rem] text-zinc-400 opacity-0 motion-reduce:translate-y-0 motion-reduce:animate-none motion-reduce:opacity-100"
+          >
+            Desarrollador Full Stack &amp; IA con ADN Creativo
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="relative flex min-h-[60vh] scroll-mt-20 items-center justify-center px-8 py-16"
+        id="sobre-mi"
+        aria-labelledby="about-title"
+      >
+        <div
+          class="spot absolute right-[-14%] top-[-12%] z-0 h-[420px] w-[420px] rounded-full bg-blue-500 opacity-[0.15] blur-[120px] pointer-events-none animate-[glow-drift_22s_ease-in-out_infinite] motion-reduce:animate-none"
+          aria-hidden="true"
+        ></div>
+        <div
+          class="about__content reveal relative z-[1] max-w-[700px] text-left opacity-0 translate-y-6 transition-all duration-[800ms] motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none"
+          data-reveal
+        >
+          <h2
+            class="mb-6 text-[clamp(1.5rem,3vw,2.2rem)] font-medium tracking-[0.04em] text-zinc-500"
+            id="about-title"
+          >
+            Sobre mí
+          </h2>
+          <p class="mb-[1.3rem] text-[1.05rem] leading-[1.75] text-zinc-400">
+            Hola, soy Gabriel Lopez, combino la arquitectura del software con la
+            visión estética del diseño 3D y los videojuegos. A diferencia de un
+            perfil puramente técnico, mi enfoque de Game Design me permite
+            construir herramientas web que no solo funcionan con IA, sino que
+            ofrecen una experiencia visual e interactiva impecable.
+          </p>
+          <p class="mb-[1.3rem] text-[1.05rem] leading-[1.75] text-zinc-400">
+            Mi objetivo es construir soluciones donde la tecnología avanzada y
+            el diseño excepcional marquen la diferencia.
+          </p>
+          <a
+            class="about__cta relative mt-2 inline-flex items-center gap-2 border-b border-transparent pb-1 text-[1.02rem] font-semibold text-white no-underline transition-colors hover:border-blue-500"
+            href="#contacto"
+            >¿Tienes un proyecto en mente? Hablemos y le damos forma.
+            <span class="arrow">→</span></a
+          >
+        </div>
+      </section>
+
+      <section
+        class="relative flex min-h-[60vh] scroll-mt-20 flex-col items-center justify-center gap-10 px-8 py-16"
+        id="proyectos"
+        aria-labelledby="projects-title"
+      >
+        <div
+          class="spot absolute bottom-[-14%] left-[-10%] z-0 h-[420px] w-[420px] rounded-full bg-blue-600 opacity-[0.15] blur-[120px] pointer-events-none animate-[glow-drift_19s_ease-in-out_infinite] motion-reduce:animate-none"
+          aria-hidden="true"
+        ></div>
+        <div
+          class="spot absolute right-[5%] top-[-8%] z-0 h-[300px] w-[300px] rounded-full bg-blue-500 opacity-[0.15] blur-[120px] pointer-events-none animate-[glow-drift_15s_ease-in-out_infinite] motion-reduce:animate-none"
+          aria-hidden="true"
+        ></div>
+        <div
+          class="project-grid reveal relative z-[1] mx-auto grid w-full max-w-[960px] grid-cols-1 justify-items-stretch gap-6 opacity-0 translate-y-6 transition-all duration-[800ms] motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none sm:grid-cols-2 lg:grid-cols-3"
+          data-reveal
+        >
+          <h2
+            class="col-span-full text-[clamp(1.5rem,3vw,2.2rem)] font-medium tracking-[0.04em] text-zinc-500"
+            id="projects-title"
+          >
+            Proyectos
+          </h2>
+
+          <a
+            class="project-card-link block text-inherit no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500"
+            href="https://github.com/Kaybriel-Coding/mi-landing"
+          >
+            <article
+              class="project-card h-full rounded-[14px] border border-white/[0.08] bg-[#0a0a0a] p-[1.8rem] text-left transition duration-300 hover:-translate-y-1.5 hover:border-blue-500/40 hover:shadow-[0_12px_30px_rgba(37,99,235,0.18)]"
+            >
+              <div
+                class="project-card__icon mb-5 h-10 w-10 rounded-[10px] bg-gradient-to-br from-blue-600 to-blue-500"
+                aria-hidden="true"
+              ></div>
+              <h3 class="mb-2 text-[1.15rem] font-semibold text-white">
+                Landing Page
+              </h3>
+              <p class="mb-5 text-[0.95rem] leading-[1.5] text-zinc-400">
+                Landing Page personal, siendo está el primer proyecto que
+                desarrollé como Full Stack Developer + IA.
+              </p>
+              <ul class="project-card__tags flex list-none flex-wrap gap-2">
+                <li
+                  class="rounded-full border border-blue-400/25 bg-blue-400/10 px-3 py-1 text-xs text-blue-400"
+                >
+                  HTML
+                </li>
+                <li
+                  class="rounded-full border border-blue-400/25 bg-blue-400/10 px-3 py-1 text-xs text-blue-400"
+                >
+                  JS
+                </li>
+                <li
+                  class="rounded-full border border-blue-400/25 bg-blue-400/10 px-3 py-1 text-xs text-blue-400"
+                >
+                  CSS/Tailwind
+                </li>
+                <li
+                  class="rounded-full border border-blue-400/25 bg-blue-400/10 px-3 py-1 text-xs text-blue-400"
+                >
+                  IA
+                </li>
+              </ul>
+            </article>
+          </a>
+
+          <article
+            class="project-card rounded-[14px] border border-white/[0.08] bg-[#0a0a0a] p-[1.8rem] text-left transition duration-300 hover:-translate-y-1.5 hover:border-blue-500/40 hover:shadow-[0_12px_30px_rgba(37,99,235,0.18)]"
+          >
+            <div
+              class="project-card__icon mb-5 h-10 w-10 rounded-[10px] bg-gradient-to-br from-blue-600 to-blue-500"
+              aria-hidden="true"
+            ></div>
+            <h3 class="mb-2 text-[1.15rem] font-semibold text-white">
+              Proyecto 2
+            </h3>
+            <p class="mb-5 text-[0.95rem] leading-[1.5] text-zinc-400">
+              Breve descripción del proyecto: qué problema resuelve y qué papel
+              tuviste en él.
+            </p>
+            <ul class="project-card__tags flex list-none flex-wrap gap-2">
+              <li
+                class="rounded-full border border-blue-400/25 bg-blue-400/10 px-3 py-1 text-xs text-blue-400"
+              >
+                Python
+              </li>
+              <li
+                class="rounded-full border border-blue-400/25 bg-blue-400/10 px-3 py-1 text-xs text-blue-400"
+              >
+                FastAPI
+              </li>
+              <li
+                class="rounded-full border border-blue-400/25 bg-blue-400/10 px-3 py-1 text-xs text-blue-400"
+              >
+                IA
+              </li>
+            </ul>
+          </article>
+
+          <article
+            class="project-card rounded-[14px] border border-white/[0.08] bg-[#0a0a0a] p-[1.8rem] text-left transition duration-300 hover:-translate-y-1.5 hover:border-blue-500/40 hover:shadow-[0_12px_30px_rgba(37,99,235,0.18)]"
+          >
+            <div
+              class="project-card__icon mb-5 h-10 w-10 rounded-[10px] bg-gradient-to-br from-blue-600 to-blue-500"
+              aria-hidden="true"
+            ></div>
+            <h3 class="mb-2 text-[1.15rem] font-semibold text-white">
+              Proyecto 3
+            </h3>
+            <p class="mb-5 text-[0.95rem] leading-[1.5] text-zinc-400">
+              Breve descripción del proyecto: qué problema resuelve y qué papel
+              tuviste en él.
+            </p>
+            <ul class="project-card__tags flex list-none flex-wrap gap-2">
+              <li
+                class="rounded-full border border-blue-400/25 bg-blue-400/10 px-3 py-1 text-xs text-blue-400"
+              >
+                Next.js
+              </li>
+              <li
+                class="rounded-full border border-blue-400/25 bg-blue-400/10 px-3 py-1 text-xs text-blue-400"
+              >
+                TypeScript
+              </li>
+              <li
+                class="rounded-full border border-blue-400/25 bg-blue-400/10 px-3 py-1 text-xs text-blue-400"
+              >
+                IA
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section
+        class="relative flex min-h-[40vh] scroll-mt-20 items-center justify-center px-8 py-16"
+        id="contacto"
+        aria-labelledby="contact-title"
+      >
+        <div
+          class="spot absolute right-[-6%] top-[8%] z-0 h-[300px] w-[300px] rounded-full bg-blue-500 opacity-[0.15] blur-[120px] pointer-events-none animate-[glow-drift_17s_ease-in-out_infinite] motion-reduce:animate-none"
+          aria-hidden="true"
+        ></div>
+        <div
+          class="reveal contact__content relative z-[1] text-center opacity-0 translate-y-6 transition-all duration-[800ms] motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none"
+          data-reveal
+        >
+          <h2
+            class="mb-4 text-[clamp(1.5rem,3vw,2.2rem)] font-medium tracking-[0.04em] text-zinc-500"
+            id="contact-title"
+          >
+            Contacto
+          </h2>
+          <a
+            class="contact__email mt-4 inline-block border-b border-transparent pb-1 text-[clamp(1.3rem,3vw,1.8rem)] text-white no-underline transition-colors hover:border-blue-500"
+            href="mailto:Gabrielopezcoding@gmail.com"
+            >Gabrielopezcoding@gmail.com</a
+          >
+
+          <div class="contact__socials mt-8 flex justify-center gap-6">
+            <a
+              class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/[0.08] text-zinc-400 transition hover:-translate-y-1 hover:border-blue-500/40 hover:text-white"
+              href="https://github.com/Kaybriel-Coding"
+              aria-label="GitHub"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M12 2C6.48 2 2 6.58 2 12.19c0 4.49 2.87 8.3 6.84 9.65.5.1.68-.22.68-.49 0-.24-.01-1.03-.01-1.87-2.78.61-3.37-1.19-3.37-1.19-.45-1.17-1.11-1.48-1.11-1.48-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.55 2.34 1.1 2.91.84.09-.66.35-1.1.63-1.35-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.05a9.34 9.34 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.64 1.03 2.76 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.19C22 6.58 17.52 2 12 2z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
 
     <script>
       // Aparición suave de elementos al entrar en el viewport
-      const revealEls = document.querySelectorAll(".reveal");
+      const revealEls = document.querySelectorAll("[data-reveal]");
       const revealObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              entry.target.classList.add("is-visible");
+              entry.target.classList.remove("opacity-0", "translate-y-6");
+              entry.target.classList.add("opacity-100", "translate-y-0");
               revealObserver.unobserve(entry.target);
             }
           });
