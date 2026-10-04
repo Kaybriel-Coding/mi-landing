@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" class="scroll-smooth">
+<html lang="es" class="scroll-smooth overflow-x-clip">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -265,7 +265,7 @@
           aria-hidden="true"
         ></div>
         <div
-          class="reveal contact__content relative z-[1] text-center opacity-0 translate-y-6 transition-all duration-[800ms] motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none"
+          class="reveal contact__content relative z-[1] w-full max-w-full text-center opacity-0 translate-y-6 transition-all duration-[800ms] motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none"
           data-reveal
         >
           <h2
@@ -274,11 +274,18 @@
           >
             Contacto
           </h2>
-          <a
-            class="contact__email mt-4 inline-block border-b border-transparent pb-1 text-[clamp(1.3rem,3vw,1.8rem)] text-white no-underline transition-colors hover:border-blue-500"
-            href="mailto:Gabrielopezcoding@gmail.com"
-            >Gabrielopezcoding@gmail.com</a
+          <button
+            class="contact__email mt-4 inline-block break-all border-b border-transparent bg-transparent pb-1 text-[clamp(1.3rem,3vw,1.8rem)] text-white no-underline transition-colors hover:border-blue-500"
+            type="button"
           >
+            Gabrielopezcoding@gmail.com
+          </button>
+          <p
+            class="mt-2 min-h-6 text-sm text-zinc-400"
+            id="contact-copy-status"
+            role="status"
+            aria-live="polite"
+          ></p>
 
           <div class="contact__socials mt-8 flex justify-center gap-6">
             <a
@@ -316,6 +323,35 @@
       );
 
       revealEls.forEach((el) => revealObserver.observe(el));
+
+      const emailButton = document.querySelector(".contact__email");
+      const copyStatus = document.getElementById("contact-copy-status");
+
+      emailButton.addEventListener("click", async () => {
+        const email = emailButton.textContent.trim();
+
+        try {
+          if (!navigator.clipboard?.writeText) throw new Error();
+          await navigator.clipboard.writeText(email);
+        } catch {
+          const temporaryInput = document.createElement("textarea");
+          temporaryInput.value = email;
+          temporaryInput.setAttribute("readonly", "");
+          temporaryInput.style.position = "fixed";
+          temporaryInput.style.opacity = "0";
+          document.body.append(temporaryInput);
+          temporaryInput.select();
+          const copied = document.execCommand("copy");
+          temporaryInput.remove();
+
+          if (!copied) {
+            copyStatus.textContent = "No se pudo copiar el correo.";
+            return;
+          }
+        }
+
+        copyStatus.textContent = "Correo copiado al portapapeles.";
+      });
 
       // Scroll suave al hacer click en los enlaces del navbar
       document
